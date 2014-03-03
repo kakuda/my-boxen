@@ -6,6 +6,8 @@ class people::kakuda {
   include clipmenu
   include emacs::formacosx
   include unarchiver
+  include java
+  include r
   
   osx_login_item { 'ClipMenu':
     name    => 'ClipMenu',
@@ -14,14 +16,12 @@ class people::kakuda {
     require => Class['clipmenu'],
   }
   
-  homebrew::tap { 'homebrew/science': }
-  
   # homebrew
   package {
     [
       'cscope',
-#      'gfortran',
       'leiningen',
+      'python',
       'python3',
       'reattach-to-user-namespace',
       'redis',
@@ -32,10 +32,6 @@ class people::kakuda {
     ensure => latest,
   }
 
-  # package { 'R':
-  #   require => Homebrew::Tap["homebrew/science"]
-  # }
-  
   # Python packages
   # package {
   #   [
@@ -44,11 +40,24 @@ class people::kakuda {
   #   ]:
   #   ensure   => latest,
   #   provider => pip,
-  # }  
+  # }
 
-  package { 'GoogleJapaneseInput':
-    source   => "http://dl.google.com/japanese-ime/latest/GoogleJapaneseInput.dmg",
-    provider => pkgdmg;
+  package {
+    'GoogleJapaneseInput':
+      source   => "http://dl.google.com/japanese-ime/latest/GoogleJapaneseInput.dmg",
+      provider => pkgdmg;
+
+    'LightTable':
+      source   => "http://d35ac8ww5dfjyg.cloudfront.net/playground/bins/0.6.4/LightTableMac.zip",
+      provider => compressed_app;
+      
+    'CotEditor':
+      source   => "http://jaist.dl.sourceforge.jp/coteditor/54872/CotEditor_1.3.1_For10.7.dmg",
+      provider => appdmg;
+      
+    'Dash':
+      source   => "http://tokyo.kapeli.com/Dash.zip",
+      provider => compressed_app;
   }
 
   package { 'zsh':
@@ -75,8 +84,15 @@ class people::kakuda {
   include osx::no_network_dsstores
   include osx::global::expand_print_dialog
   include osx::global::expand_save_dialog
+  include osx::global::natural_mouse_scrolling
   
   class { 'osx::dock::position':
     position => 'left'
+  }
+  class { 'osx::global::key_repeat_delay':
+    delay => 10
+  }  
+  class { 'osx::global::key_repeat_rate':
+    rate => 1
   }
 }
