@@ -8,14 +8,14 @@ class people::kakuda {
   include unarchiver
   include java
   include r
-  
+
   osx_login_item { 'ClipMenu':
     name    => 'ClipMenu',
     path    => '/Applications/ClipMenu.app',
     hidden  => true,
     require => Class['clipmenu'],
   }
-  
+
   # homebrew
   package {
     [
@@ -50,11 +50,11 @@ class people::kakuda {
     'LightTable':
       source   => "http://d35ac8ww5dfjyg.cloudfront.net/playground/bins/0.6.4/LightTableMac.zip",
       provider => compressed_app;
-      
+
     'CotEditor':
       source   => "http://jaist.dl.sourceforge.jp/coteditor/54872/CotEditor_1.3.1_For10.7.dmg",
       provider => appdmg;
-      
+
     'Dash':
       source   => "http://tokyo.kapeli.com/Dash.zip",
       provider => compressed_app;
@@ -91,7 +91,7 @@ class people::kakuda {
   }
   class { 'osx::global::key_repeat_delay':
     delay => 10
-  }  
+  }
   class { 'osx::global::key_repeat_rate':
     rate => 1
   }
