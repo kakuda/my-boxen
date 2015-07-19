@@ -52,8 +52,6 @@ your app best to work with Boxen.
 # config/database.yml
 
 <%
-  def boxen?; ENV['BOXEN_HOME']; end
-
   socket = [
     ENV["BOXEN_MYSQL_SOCKET"],
     "/var/run/mysql5/mysqld.sock",
@@ -115,7 +113,7 @@ test:
 ``` ruby
 # config/initializers/redis.rb
 
-$redis = Redis.new(ENV['BOXEN_REDIS_URL'] || 'redis://localhost:6379/')
+$redis = Redis.new(url: (ENV['BOXEN_REDIS_URL'] || 'redis://localhost:6379/'))
 ```
 
 ### Elasticsearch
