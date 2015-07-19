@@ -1,63 +1,43 @@
 class people::kakuda {
-  include iterm2::stable
-  include dropbox
-  include eclipse::java
-  include chrome
+#  include atom
   include clipmenu
-  include emacs::formacosx
-  include unarchiver
-  include java
-  include r
+  include brewcask
+
+  # brewcask
+  $apps = [
+    'dropbox',
+    'emacs',
+    'google-chrome',
+    'kindle',
+    'iterm2',
+    'java',
+    'virtualbox',
+    'the-unarchiver',
+  ]
+
+  package { $apps:
+    provider => brewcask
+  }
+
+  # homebrew
+  package {
+    [
+#      'cscope',
+      'leiningen',
+#      'reattach-to-user-namespace',
+#      'ssh-copy-id',
+      'direnv',
+      'go',
+      'tmux',
+    ]:
+    ensure => latest,
+  }
 
   osx_login_item { 'ClipMenu':
     name    => 'ClipMenu',
     path    => '/Applications/ClipMenu.app',
     hidden  => true,
     require => Class['clipmenu'],
-  }
-
-  # homebrew
-  package {
-    [
-      'cscope',
-      'leiningen',
-      'python',
-      'python3',
-      'reattach-to-user-namespace',
-      'redis',
-      'sbcl',
-      'ssh-copy-id',
-      'tmux',
-    ]:
-    ensure => latest,
-  }
-
-  # Python packages
-  # package {
-  #   [
-  #     'virtualenv',
-  #     'virtualenvwrapper',
-  #   ]:
-  #   ensure   => latest,
-  #   provider => pip,
-  # }
-
-  package {
-    'GoogleJapaneseInput':
-      source   => "http://dl.google.com/japanese-ime/latest/GoogleJapaneseInput.dmg",
-      provider => pkgdmg;
-
-    'LightTable':
-      source   => "http://d35ac8ww5dfjyg.cloudfront.net/playground/bins/0.6.4/LightTableMac.zip",
-      provider => compressed_app;
-
-    'CotEditor':
-      source   => "http://jaist.dl.sourceforge.jp/coteditor/54872/CotEditor_1.3.1_For10.7.dmg",
-      provider => appdmg;
-
-    'Dash':
-      source   => "http://tokyo.kapeli.com/Dash.zip",
-      provider => compressed_app;
   }
 
   package { 'zsh':
