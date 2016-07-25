@@ -33,7 +33,7 @@ github "boxen", "3.11.1"
 
 # Support for default hiera data in modules
 
-github "module_data", "0.0.3", :repo => "ripienaar/puppet-module-data"
+github "module_data", "0.0.4", :repo => "ripienaar/puppet-module-data"
 
 # Core modules for a basic development environment. You can replace
 # some/most of these if you want, but it's not recommended.
@@ -46,7 +46,7 @@ github "git",         "2.9.0"
 github "go",          "2.1.0"
 github "homebrew",    "2.0.2"
 github "hub",         "1.4.1"
-github "inifile",     "1.1.1", :repo => "puppetlabs/puppetlabs-inifile"
+github "inifile",     "1.4.1", :repo => "puppetlabs/puppetlabs-inifile"
 github "nginx",       "1.7.0"
 github "nodejs",      "5.0.0"
 github "openssl",     "1.0.0"
