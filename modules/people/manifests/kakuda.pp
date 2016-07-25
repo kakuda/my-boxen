@@ -1,16 +1,19 @@
 class people::kakuda {
-#  include atom
+  include atom
   include clipmenu
   include brewcask
+  include vagrant
 
   # brewcask
   $apps = [
+    'audacity',
     'dropbox',
     'emacs',
     'google-chrome',
     'kindle',
     'iterm2',
     'java',
+    'lighttable',
     'virtualbox',
     'the-unarchiver',
   ]
@@ -23,11 +26,12 @@ class people::kakuda {
   package {
     [
 #      'cscope',
-      'leiningen',
 #      'reattach-to-user-namespace',
 #      'ssh-copy-id',
       'direnv',
       'go',
+      'leiningen',
+      'pyenv',
       'tmux',
     ]:
     ensure => latest,
@@ -52,7 +56,7 @@ class people::kakuda {
     require => Package['zsh'],
     before  => Osx_chsh[$::luser];
   }
-  
+
   osx_chsh { $::luser:
     shell => "${boxen::config::homebrewdir}/bin/zsh";
   }
@@ -65,12 +69,13 @@ class people::kakuda {
   include osx::global::expand_print_dialog
   include osx::global::expand_save_dialog
   include osx::global::natural_mouse_scrolling
-  
+  include osx::keyboard::capslock_to_control
+
   class { 'osx::dock::position':
     position => 'left'
   }
   class { 'osx::global::key_repeat_delay':
-    delay => 10
+    delay => 12
   }
   class { 'osx::global::key_repeat_rate':
     rate => 1
